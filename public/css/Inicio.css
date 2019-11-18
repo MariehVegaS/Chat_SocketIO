@@ -1,12 +1,13 @@
 * {
     box-sizing: border-box;
+    font-family: Leelawadee UI;
     padding: 0px;
     margin: 0px;
 }
 
 body{
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
 }
 
 #contenedor{
@@ -15,11 +16,74 @@ body{
     grid-auto-rows: auto;
     width: 100%;
     height: 100%;
+    background-color: #820263;
 }
 
 #panel{
+    padding: 0px 25px;
     display: grid;
     align-self: center;
     justify-self: center;
+    width: 300px;
+    height: 400px;
+    align-items: center;
+    justify-items: center;
+    background-color: #148787;
+    border-radius: 5px;
+    grid-auto-columns: auto;
+    grid-auto-rows: 100px 100px 100px 100px;
+    grid-template-areas:
+        "header"
+        "user"
+        "password"
+        "links";
 }
 
+.Titulo{
+    display: grid;
+    grid-area: header;
+    font-size: 30px;
+    font-weight: 800;
+    color: #F3DFC1;
+}
+
+#Usuario {
+    display: grid;
+    grid-area: user;
+    font-size: 18px;
+    font-weight: 600;
+    color: #F3DFC1;
+    padding: 10px;
+    align-self: end;
+}
+
+#Contraseña {
+    display: grid;
+    grid-area: password;
+    font-size: 18px;
+    font-weight: 600;
+    color: #F3DFC1;
+    padding: 10px;
+    align-self: start;
+}
+
+#Links {
+    display: grid;
+    grid-area: links;
+    justify-items: center;
+    align-self: start;
+    color: #160F29;
+    font-weight: 800;
+}
+
+#Links a {
+    color: #160F29;
+    font-weight: 800;
+}
+
+input {
+    background: 0;
+    color: #160F29;
+    border-width: 0px 0px 2px 0px;
+    border-color: #F3DFC1;
+}

@@ -8,8 +8,7 @@ app.use(express.static('public'));
 
 app.get('/', function(req, res){
   res.sendFile(`${__dirname}/public/views/Inicio.html`,(e)=>{
-      console.log(e);
-      res.send('Error');
+      //res.send('Error');
   });
 });
 

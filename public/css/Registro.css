@@ -25,19 +25,18 @@ body{
     align-self: center;
     justify-self: center;
     width: 300px;
-    height: 400px;
+    height: 340px;
     align-items: center;
     justify-items: center;
     background-color: #148787;
     border-radius: 5px;
-    grid-auto-columns: auto;
-    grid-auto-rows: 70px 100px 100px 30px 100px;
+    grid-auto-columns: 50% 50%;
+    grid-auto-rows: 70px 100px 100px 70px;
     grid-template-areas:
-        "header"
-        "user"
-        "password"
-        "buttom"
-        "links";
+        "header header"
+        "user user"
+        "password password"
+        "buttom1 buttom2";
 }
 
 .Titulo{
@@ -71,20 +70,6 @@ body{
     align-self: start;
 }
 
-#Links {
-    display: grid;
-    grid-area: links;
-    justify-items: center;
-    align-self: center;
-    color: #160F29;
-    font-weight: 800;
-}
-
-#Links a {
-    color: #160F29;
-    font-weight: 800;
-}
-
 input {
     background: 0;
     color: #F3DFC1;
@@ -92,9 +77,20 @@ input {
     border-color: #F3DFC1;
 }
 
+#Volver {
+    display: grid;
+    grid-area: buttom2;
+}
+
+#Crear {
+    
+    display: grid;
+    grid-area: buttom1;
+}
+
 button {
     display: grid;
-    grid-area: buttom;
+    align-self: start;
     cursor: pointer;
     background-color: #F3DFC1;
     height: 30px;

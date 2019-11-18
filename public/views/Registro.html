@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/Inicio.css">
+    <link rel="stylesheet" href="css/Registro.css">
     <title>Inicio de sesión</title>
 </head>
 
@@ -13,8 +13,7 @@
     <div id="contenedor">
         <div id="panel">
             <div class="Titulo">
-                <span>Inicio 
-                    de sesión</span>
+                <span>Crear usuario</span>
             </div>
             <div id="Usuario">
                 <span>Usuario</span>
@@ -28,20 +27,18 @@
                     <input type="password" class="txtContraseña">
                 </div>
             </div>
-            <button id="Entrar" onclick="validar()">Entrar</button>
-            <div id="Links">
-                <a href="http://localhost:3000/de_malas">¿Has olvidado tu contraseña?</a>
-                ¿Aún no tienes una cuenta?
-                <a href="http://localhost:3000/registro">Regístrate</a>
-            </div>
+            <button id="Crear" onclick="crear()">Crear</button>
+            <button id="Volver" onclick="volver()">Volver</button>
         </div>
     </div>
 </body>
-<script src="/socket.io/socket.io.js"></script>
 <script>
-function validar() {
-    //Tenemos que validar antes de ponerlo en el chat
-    window.location = 'http://localhost:3000/chatroom/username';
+function crear() {
+    //guardamos antes los datos
+    // y tmbn hay que validarlos
+}
+function volver() {
+    window.location = 'http://localhost:3000/';
 }
 </script>
 

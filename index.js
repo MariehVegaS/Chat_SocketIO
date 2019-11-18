@@ -18,7 +18,7 @@ app.get('/registro', function(req, res){
     });
 });
 
-app.get('/chatroom/username', function(req, res){
+app.get('/chatroom', function(req, res){
     res.sendFile(`${__dirname}/public/views/Chatroom.html`,(e)=>{
     });
 });

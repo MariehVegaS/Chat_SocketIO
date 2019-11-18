@@ -16,7 +16,7 @@ body{
     grid-auto-rows: auto;
     width: 100%;
     height: 100%;
-    background-color: #820263;
+    background-color: #148787;
 }
 
 #panel{
@@ -28,7 +28,7 @@ body{
     height: 340px;
     align-items: center;
     justify-items: center;
-    background-color: #148787;
+    background-color: #F3DFC1;
     border-radius: 5px;
     grid-auto-columns: 50% 50%;
     grid-auto-rows: 70px 100px 100px 70px;
@@ -44,7 +44,7 @@ body{
     grid-area: header;
     font-size: 30px;
     font-weight: 800;
-    color: #F3DFC1;
+    color: #820263;
     align-self: end;
     padding: 7px;
     border-bottom: 3px solid #820263!important;
@@ -55,7 +55,7 @@ body{
     grid-area: user;
     font-size: 18px;
     font-weight: 600;
-    color: #F3DFC1;
+    color: #820263;
     padding: 10px;
     align-self: end;
 }
@@ -65,16 +65,16 @@ body{
     grid-area: password;
     font-size: 18px;
     font-weight: 600;
-    color: #F3DFC1;
+    color: #820263;
     padding: 10px;
     align-self: start;
 }
 
 input {
     background: 0;
-    color: #F3DFC1;
+    color: #820263;
     border-width: 0px 0px 2px 0px;
-    border-color: #F3DFC1;
+    border-color: #820263;
 }
 
 #Volver {
@@ -92,17 +92,17 @@ button {
     display: grid;
     align-self: start;
     cursor: pointer;
-    background-color: #F3DFC1;
+    background-color: #820263;
     height: 30px;
     width: 100px;
     border: 0;
     border-radius: 5px;
-    color: #148787;
+    color: #F3DFC1;
     font-size: 15px;
     font-weight: 600;
 }
 
 button:hover{
-    background-color: #820263;
+    background-color: #A53A8A;
     color: #F3DFC1;
 }

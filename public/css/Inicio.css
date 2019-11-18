@@ -1,0 +1,25 @@
+* {
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+
+body{
+    width: 100%;
+    height: 100%;
+}
+
+#contenedor{
+    display: grid;
+    grid-template-columns: auto;
+    grid-auto-rows: auto;
+    width: 100%;
+    height: 100%;
+}
+
+#panel{
+    display: grid;
+    align-self: center;
+    justify-self: center;
+}
+

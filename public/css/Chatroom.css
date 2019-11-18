@@ -130,3 +130,11 @@ button:hover{
     background-color: #148787;
     color: #F3DFC1;
 }
+
+#Agregar {
+    display: grid;
+    justify-self: center;
+    cursor: pointer;
+    font-size: 40px;
+    color: #F3DFC1;
+}

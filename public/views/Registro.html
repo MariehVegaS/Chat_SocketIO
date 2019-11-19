@@ -18,13 +18,13 @@
             <div id="Usuario">
                 <span>Usuario</span>
                 <div class="txtContenedor">
-                    <input type="text" class="txtUsuario">
+                    <input type="text" id="txtUsuario">
                 </div>
             </div>
             <div id="Contraseña">
                 <span>Contraseña</span>
                 <div class="txtContenedor">
-                    <input type="password" class="txtContraseña">
+                    <input type="password" id="txtContraseña">
                 </div>
             </div>
             <button id="Crear" onclick="crear()">Crear</button>
@@ -34,8 +34,13 @@
 </body>
 <script>
 function crear() {
-    //guardamos antes los datos
-    // y tmbn hay que validarlos
+    let username = document.getElementById('txtUsuario').value;
+    let password = document.getElementById('txtContraseña').value;
+    if (username && password) {
+        window.location = `http://localhost:3000/create/${username}/${password}`;
+    }else{
+        alert('Favor llenar todos los campos');
+    }
 }
 function volver() {
     window.location = 'http://localhost:3000/';

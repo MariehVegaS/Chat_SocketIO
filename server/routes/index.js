@@ -48,4 +48,22 @@ router.get('/validation/:username/:password', async (req, res, next) => {
     }
 });
 
+router.get('/create/:username/:password', async (req, res, next) => {
+    try {
+        let all = await db.all();
+        let id;
+        all.forEach(element => {
+            id = element.id;
+        });
+        id = id + 1;
+        let username = req.params.username;
+        let password = req.params.password;
+        db.create(id,username,password);
+        res.redirect(`http://localhost:3000/chatroom/${username}`);
+    } catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+});
+
 module.exports = router;

@@ -48,4 +48,15 @@ chatdb.one = (user) => {
     });
 };
 
+chatdb.create = (id,user,password) => {
+    return new Promise((resolve, reject) => {
+        pool.query(`INSERT INTO chat.usuarios (id, user, password) VALUES ('${id}', '${user}', '${password}');`, (err, results) => {
+            if (err) {
+                return reject(err);
+            }
+            return resolve(results);
+        });
+    });
+};
+
 module.exports = chatdb;

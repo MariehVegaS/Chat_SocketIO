@@ -37,13 +37,13 @@ function crear() {
     let username = document.getElementById('txtUsuario').value;
     let password = document.getElementById('txtContraseña').value;
     if (username && password) {
-        window.location = `http://localhost:3000/create/${username}/${password}`;
+        window.location = `../create/${username}/${password}`;
     }else{
         alert('Favor llenar todos los campos');
     }
 }
 function volver() {
-    window.location = 'http://localhost:3000/';
+    window.location = '/';
 }
 </script>
 

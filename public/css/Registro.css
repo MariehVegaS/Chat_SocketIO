@@ -10,7 +10,7 @@ body{
     height: 100vh;
 }
 
-#contenedor{
+#contenedor, form{
     display: grid;
     grid-template-columns: auto;
     grid-auto-rows: auto;

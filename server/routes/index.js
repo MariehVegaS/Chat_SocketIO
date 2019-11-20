@@ -1,11 +1,46 @@
 const express = require('express');
 const db = require('../db');
 const router = express.Router();
-let password;
 
 router.get('/', (req, res, next) => {
     res.sendFile(`${process.cwd()}/public/views/Inicio.html`, (e) => {
     });
+});
+
+router.post('/validation', async (req, res, next) => {
+    let username = req.body.Usuario;
+    let password = req.body.Contraseña;
+    if (password && username) {
+        try {
+            let all = await db.all();
+            let exist = false;
+            all.forEach(element => {
+                if (element.user == username) {
+                    exist = true;
+                }
+            });
+            if (exist == true) {
+                let results = await db.one(username);
+                let passwordDB = results[0].password;
+                if (password == passwordDB) {
+                    res.redirect(`/chatroom/${req.params.username}`);
+                } else {
+                    console.log('Contraseña incorrecta');
+                    res.redirect(`/`);
+                }
+            } else {
+                console.log('El usuario no existe');
+                res.redirect(`/`);
+            }
+        } catch (e) {
+            console.log(e);
+            res.sendStatus(500);
+        }
+    } else {
+        console.log('Faltan campos por llenar');
+        res.redirect(`/`);
+    }
+
 });
 
 router.get('/registro', (req, res, next) => {
@@ -18,37 +53,9 @@ router.get('/chatroom/:username', (req, res, next) => {
     });
 });
 
-router.get('/validation/:username/:password', async (req, res, next) => {
-    try {
-        let all = await db.all();
-        let username = req.params.username;
-        let exist = false;
-        all.forEach(element => {
-            if (element.user == username) {
-                exist = true;
-            }
-        });
-        if (exist == true) {
-            let results = await db.one(username);
-            let password = req.params.password;
-            let passwordDB = results[0].password;
-            if (password == passwordDB) {
-                res.redirect(`http://localhost:3000/chatroom/${req.params.username}`);
-            } else {
-                console.log('Contraseña incorrecta');
-                res.redirect(`http://localhost:3000/`);
-            }
-        }else{
-            console.log('El usuario no existe');
-            res.redirect(`http://localhost:3000/`);
-        }
-    } catch (e) {
-        console.log(e);
-        res.sendStatus(500);
-    }
-});
-
 router.get('/create/:username/:password', async (req, res, next) => {
+    let username = req.params.username;
+    let password = req.params.password;
     try {
         let all = await db.all();
         let id;
@@ -56,14 +63,13 @@ router.get('/create/:username/:password', async (req, res, next) => {
             id = element.id;
         });
         id = id + 1;
-        let username = req.params.username;
-        let password = req.params.password;
-        db.create(id,username,password);
-        res.redirect(`http://localhost:3000/chatroom/${username}`);
+        db.create(id, username, password);
+        res.redirect(`/chatroom/${username}`);
     } catch (e) {
         console.log(e);
         res.sendStatus(500);
     }
+
 });
 
 module.exports = router;

@@ -11,44 +11,33 @@
 
 <body>
     <div id="contenedor">
-        <div id="panel">
-            <div class="Titulo">
-                <span>Inicio 
-                    de sesión</span>
-            </div>
-            <div id="Usuario">
-                <span>Usuario</span>
-                <div class="txtContenedor">
-                    <input type="text" id="txtUsuario">
+        <form action="/validation" method="post">
+            <div id="panel">
+                <div class="Titulo">
+                    <span>Inicio
+                        de sesión</span>
+                </div>
+                <div id="Usuario">
+                    <span>Usuario</span>
+                    <div class="txtContenedor">
+                        <input type="text" id="txtUsuario" name="Usuario">
+                    </div>
+                </div>
+                <div id="Contraseña">
+                    <span>Contraseña</span>
+                    <div class="txtContenedor">
+                        <input type="password" id="txtContraseña" name="Contraseña">
+                    </div>
+                </div>
+                <button id="Entrar" formmethod="post">Entrar</button>
+                <div id="Links">
+                    <a href="/de_malas">¿Has olvidado tu contraseña?</a>
+                    ¿Aún no tienes una cuenta?
+                    <a href="/registro">Regístrate</a>
                 </div>
             </div>
-            <div id="Contraseña">
-                <span>Contraseña</span>
-                <div class="txtContenedor">
-                    <input type="password" id="txtContraseña">
-                </div>
-            </div>
-            <button id="Entrar" onclick="validar()">Entrar</button>
-            <div id="Links">
-                <a href="http://localhost:3000/de_malas">¿Has olvidado tu contraseña?</a>
-                ¿Aún no tienes una cuenta?
-                <a href="http://localhost:3000/registro">Regístrate</a>
-            </div>
-        </div>
+        </form>
     </div>
 </body>
-<script src="/socket.io/socket.io.js"></script>
-<script>
-function validar() {
-    //Tenemos que validar antes de ponerlo en el chat
-    let username = document.getElementById('txtUsuario').value;
-    let password = document.getElementById('txtContraseña').value;
-    if (username && password) {
-        window.location = `http://localhost:3000/validation/${username}/${password}`;
-    }else{
-        alert('Favor llenar todos los campos');
-    }
-}
-</script>
 
 </html>

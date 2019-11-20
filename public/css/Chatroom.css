@@ -235,4 +235,19 @@ color:#148787;
     height:50px;
     border-bottom: 2px solid #148787;
     margin-bottom: 2px;
+    cursor: pointer;
+}
+#rooms>li{
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    font-family: Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color:#148787;
+    background-color: white;
+    height:50px;
+    border-bottom: 2px solid #148787;
+    margin-bottom: 2px;
+    cursor: pointer;
 }

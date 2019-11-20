@@ -33,13 +33,16 @@ http.listen(port, function () {
 
 io.on('connection', function (socket) {
   console.log(`User connected ${socket.id}  ${username}`);
-  users.push(username);
+  users.push({ username: username, id: socket.id });
   socket.name = username;
-  io.emit('msg', 'Se ha unido al lobby', socket.name);
-  io.emit('render', users);
 
   let room = 'lobby';
   socket.join(room);
+
+  io.sockets.in(room).emit('msg', `Se ha unido al room ${room}`, socket.name);
+  io.emit('render', users);
+  io.emit('renderRooms', rooms);
+
 
   socket.on('msg', function (msg) {
     io.sockets.in(room).emit('msg', msg, socket.name);
@@ -57,11 +60,16 @@ io.on('connection', function (socket) {
     io.emit('renderRooms', rooms);
   })
 
+  socket.on('renderPrivateRooms', () => {
+    io.emit('renderRooms', rooms);
+    console.log('Rendering rooms')
+  })
+
 
 
   socket.on('disconnect', function () {
     console.log(`User disconnected ${socket.id}`);
-    let index = users.indexOf(username);
+    let index = users.indexOf({ username: username, id: socket.id });
     users.splice(index, 1);
     io.emit('msg', 'Ha abandonado el lobby', socket.name);
     console.log(users);

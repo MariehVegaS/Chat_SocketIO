@@ -30,6 +30,14 @@ function connect() {
         chat.innerHTML = '';
     })
 
+    socket.on('recieveChat', (newSocket) => {
+        socket.emit('createPrivateRoom', `${newSocket.name}-${socket.name}`, newSocket.id);
+    })
+
+    socket.on('addRoom', (nameRoom) => {
+        privateRooms.push(nameRoom);
+    })
+
     //event send
     let send = document.querySelector("#send");
     send.onclick = () => {
@@ -98,30 +106,28 @@ function connect() {
     }
 
     function addEventClicksRooms() {
-        let roomsList = document.querySelectorAll('#rooms>.roomsito');
+        let roomsList = document.querySelectorAll('#rooms>li');
 
         for (let i = 0; i < roomsList.length; i++) {
             roomsList[i].onclick = () => {
                 socket.emit('changeRoom', roomsList[i].dataset.room)
             }
         }
-        let privateList = document.querySelectorAll('#rooms>.private');
-
-        for (let i = 0; i < privateList.length; i++) {
-            privateList[i].onclick = () => {
-                socket.emit('addPrivateChat', privateList[i].dataset.id)
-            }
-        }
     }
     function addEventClicksContacts() {
         let contactsList = document.querySelector('.contacts-list');
-        privateRooms = [];
         console.log(contactsList)
         for (let i = 0; i < contactsList.children.length; i++) {
             contactsList.children[i].onclick = () => {
                 console.log('private added añadido')
-                privateRooms.push({ username: contactsList.children[i].dataset.username, id: contactsList.children[i].dataset.id });
+                let contacts = document.querySelector('.contacts-panel');
+
+                contacts.classList.toggle('hide-contacts');
+
+                // privateRooms.push({ username: contactsList.children[i].dataset.username, id: contactsList.children[i].dataset.id });
                 socket.emit('renderPrivateRooms');
+                socket.emit('addPrivateChat', { username: contactsList.children[i].dataset.username, id: contactsList.children[i].dataset.id })
+
             }
             console.log('Adding events contact')
         }
@@ -156,12 +162,11 @@ function connect() {
             el.innerHTML = `${room}`;
             listRooms.appendChild(el)
         }
-        for (const contact of privateRooms) {
+        for (const privateRoom of privateRooms) {
             let el = document.createElement('li');
             el.classList.add('private');
-            el.dataset.room = contact.username;
-            el.dataset.id = contact.id;
-            el.innerHTML = `${contact.username}`;
+            el.dataset.room = privateRoom;
+            el.innerHTML = `${privateRoom}`;
             listRooms.appendChild(el)
             console.log('rendering privates');
         }

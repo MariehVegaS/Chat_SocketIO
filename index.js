@@ -59,12 +59,39 @@ io.on('connection', function (socket) {
     rooms.push(room);
     io.emit('renderRooms', rooms);
   })
+  socket.on('createPrivateRoom', (newRoom, socketId) => {
+    rooms.push(newRoom);
+    socket.join(newRoom);
+    io.to(socketId).emit('joinPrivate', newRoom);
+    io.to(socketId).emit('renderPrivateRoom', newRoom);
+    io.emit('renderPrivateRooms')
+  })
 
   socket.on('renderPrivateRooms', () => {
     io.emit('renderRooms', rooms);
     console.log('Rendering rooms')
   })
 
+  socket.on('joinPrivate', (nameRoom) => {
+    socket.leave(room);
+    socket.join(nameRoom);
+
+  })
+  socket.on('addPrivateChat', (socketNew) => {
+    let newRoom = `${socket.name}-${socketNew.username}`;
+    // rooms.push(newRoom);
+    socket.leave(room);
+    socket.join(newRoom);
+    socket.emit('addRoom', newRoom);
+
+    io.to(socketNew.id).emit('joinPrivate', newRoom);
+    io.to(socketNew.id).emit('addRoom', newRoom);
+
+    io.emit('renderRooms', rooms);
+    // io.to(socketNew.id).emit('renderPrivateRoom', newRoom);
+
+    // io.to(socketNew.id).emit('recieveChat', socket);
+  })
 
 
   socket.on('disconnect', function () {

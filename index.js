@@ -7,6 +7,9 @@ const port = process.env.PORT || 3000;
 
 var users = [];
 var rooms = [];
+privateRooms = []
+var data = {};
+
 var username;
 app.use(express.static('public'));
 
@@ -46,6 +49,7 @@ io.on('connection', function (socket) {
 
   socket.on('msg', function (msg) {
     io.sockets.in(room).emit('msg', msg, socket.name);
+    socket.emit('saveMsg', msg);
   })
 
   socket.on('changeRoom', function (newRoom) {
@@ -53,10 +57,12 @@ io.on('connection', function (socket) {
     socket.join(newRoom);
     room = newRoom;
     socket.emit('changeRoom', newRoom);
+    io.sockets.in(room).emit('renderMessages', data[room]);
   })
 
   socket.on('createRoom', (room) => {
     rooms.push(room);
+    data[room] = [];
     io.emit('renderRooms', rooms);
   })
   socket.on('createPrivateRoom', (newRoom, socketId) => {
@@ -80,20 +86,28 @@ io.on('connection', function (socket) {
   socket.on('addPrivateChat', (socketNew) => {
     let newRoom = `${socket.name}-${socketNew.username}`;
     // rooms.push(newRoom);
+
+
     socket.leave(room);
     socket.join(newRoom);
     socket.emit('addRoom', newRoom);
+    data[newRoom] = [];
 
     io.to(socketNew.id).emit('joinPrivate', newRoom);
     io.to(socketNew.id).emit('addRoom', newRoom);
 
     io.emit('renderRooms', rooms);
-    // io.to(socketNew.id).emit('renderPrivateRoom', newRoom);
-
-    // io.to(socketNew.id).emit('recieveChat', socket);
   })
 
+  socket.on('saveMsg', (msg) => {
+    console.log(data);
+    data[room].push({ username: socket.name, msg });
+    io.sockets.in(room).emit('renderMessages', data[room]);
+  })
 
+  // socket.on('renderMessages', () => {
+  //   io.sockets.in(room).emit('renderMsgInterface', data[room]);
+  // })
   socket.on('disconnect', function () {
     console.log(`User disconnected ${socket.id}`);
     let index = users.indexOf({ username: username, id: socket.id });

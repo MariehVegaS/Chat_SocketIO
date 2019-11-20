@@ -21,6 +21,20 @@ function connect() {
         el.scrollIntoView(true);
     });
 
+    socket.on('renderMessages', function (chat) {
+        console.log(chat)
+        if (chat) {
+            let chatSpace = document.querySelector("#messages");
+            chatSpace.innerHTML = '';
+            for (const message of chat) {
+                let el = document.createElement('li');
+                el.innerHTML = `<strong>${message.username}</strong> <div>${message.msg}</div>`;
+                chatSpace.appendChild(el);
+                el.scrollIntoView(true);
+            }
+        }
+    });
+
     socket.on('renderRooms', (rooms) => {
         renderRooms(rooms);
     })
@@ -38,6 +52,10 @@ function connect() {
         privateRooms.push(nameRoom);
     })
 
+    socket.on('renderMsgInterface', (data) => {
+
+    })
+
     //event send
     let send = document.querySelector("#send");
     send.onclick = () => {
@@ -46,7 +64,7 @@ function connect() {
         if (mensaje == '') return false;
         msg.value = '';
         msg.focus();
-        socket.emit('msg', mensaje);
+        socket.emit('saveMsg', mensaje);
     }
     let msg = document.querySelector('#msg');
     msg.onkeyup = () => {
@@ -56,7 +74,7 @@ function connect() {
             if (mensaje == '') return false;
             msg.value = '';
             msg.focus();
-            socket.emit('msg', mensaje);
+            socket.emit('saveMsg', mensaje);
         }
     }
 
@@ -111,6 +129,8 @@ function connect() {
         for (let i = 0; i < roomsList.length; i++) {
             roomsList[i].onclick = () => {
                 socket.emit('changeRoom', roomsList[i].dataset.room)
+                let title = document.querySelector('#nombre');
+                title.innerHTML = roomsList[i].dataset.room;
             }
         }
     }
@@ -145,7 +165,6 @@ function connect() {
             el.innerHTML = `${user.username}`;
             el.dataset.username = `${user.username}`
             el.dataset.id = `${user.id}`
-
             listUsers.appendChild(el);
             console.log('Usuario añadido a Interfaz')
         }
@@ -161,6 +180,8 @@ function connect() {
             el.dataset.room = room;
             el.innerHTML = `${room}`;
             listRooms.appendChild(el)
+
+
         }
         for (const privateRoom of privateRooms) {
             let el = document.createElement('li');

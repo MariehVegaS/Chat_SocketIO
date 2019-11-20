@@ -10,10 +10,11 @@
 </head>
 
 <body>
+
     <div id="contenedor">
         <div id="panel">
             <div class="Titulo">
-                <span>Inicio 
+                <span>Inicio
                     de sesión</span>
             </div>
             <div id="Usuario">
@@ -37,12 +38,15 @@
         </div>
     </div>
 </body>
-<script src="/socket.io/socket.io.js"></script>
 <script>
-function validar() {
-    //Tenemos que validar antes de ponerlo en el chat
-    window.location = 'http://localhost:3000/chatroom';
-}
+    function validar() {
+        //Tenemos que validar antes de ponerlo en el chat
+        var username = document.querySelector('.txtUsuario').value;
+        window.location = `${window.location.href}chatroom/${username}`;
+    }
+
+
+
 </script>
 
 </html>
